@@ -45,7 +45,7 @@ with engine.begin() as conn:
 
 df.to_sql('art_scanform', engine, if_exists='append')
 
-table = 'art_scanform'
+# table = 'art_scanform'
 
 with engine.connect() as connection:
     count_statement = 'select count(*) from art_scanform'
