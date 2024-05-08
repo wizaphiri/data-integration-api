@@ -6,6 +6,9 @@ import pandas as pd
 import requests
 import os
 
+import warnings
+warnings.filterwarnings('ignore')
+
 print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': Data integration initialized')
 os.environ['DATA_CLIENT_ID'] = "XXXXXXXXXXXX"
 os.environ['DATA_CLIENT_SECRET'] = "XXXXXXXXXXXXXXXX"
