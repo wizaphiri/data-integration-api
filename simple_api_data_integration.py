@@ -9,9 +9,9 @@ import os
 import warnings
 warnings.filterwarnings('ignore')
 
-print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': Data integration initialized')
-os.environ['DATA_CLIENT_ID'] = "XXXXXXXXXXXX"
-os.environ['DATA_CLIENT_SECRET'] = "XXXXXXXXXXXXXXXX"
+print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': Integration started......')
+os.environ['client_id'] = "XXXXXXXXXXXX"
+os.environ['client_key'] = "XXXXXXXXXXXXXXXX"
 
 AUTH_URL = (
     "https://........./token"
@@ -22,8 +22,8 @@ r = requests.post(
     headers={"content-type": "application/x-www-form-urlencoded"},
     data={
         "grant_type": "grant type",
-        "client_id": os.environ["DATA_CLIENT_ID"],
-        "client_secret": os.environ["DATA_CLIENT_SECRET"],
+        "client_id": os.environ["client_id"],
+        "client_secret": os.environ["client_key"],
     },
 )
 headers = {"Authorization": "Bearer " + r.json()["access_token"]}
@@ -38,21 +38,16 @@ r = requests.get(
 df = pd.read_csv(BytesIO(r.content))
 df_records = df.shape[0]
 print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': '+str(df_records)+' records extracted')
-# export df to csv
 # print(df.info())
 
 engine = create_engine('postgresql+psycopg2://userx:passx@localhost/dbx')
 with engine.begin() as conn:
-    conn.exec_driver_sql("DROP TABLE IF EXISTS art_scanform")
-    #print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': table art_scanform dropped')
-
-df.to_sql('art_scanform', engine, if_exists='append')
-
-# table = 'art_scanform'
+    conn.exec_driver_sql("DROP TABLE IF EXISTS tablex")
+    df.to_sql('tablex', engine, if_exists='append')
 
 with engine.connect() as connection:
-    count_statement = 'select count(*) from art_scanform'
-    record_count = connection.execute(count_statement).scalar()
+    countx = 'select count(*) from tablex'
+    record_count = connection.execute(countx).scalar()
 
 print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': '+str(record_count)+' records loaded')
 if df_records == record_count:
