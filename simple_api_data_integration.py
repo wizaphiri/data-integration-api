@@ -10,8 +10,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 print(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+': Integration started......')
-os.environ['client_id'] = "XXXXXXXXXXXX"
-os.environ['client_key'] = "XXXXXXXXXXXXXXXX"
+os.environ['client_id'] = "client_id"
+os.environ['client_key'] = "client_key"
 
 AUTH_URL = (
     "https://........./token"
